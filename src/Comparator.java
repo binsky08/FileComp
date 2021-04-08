@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Comparator {
-    private String rootPath;
-    private HashMap<String, ArrayList<String>> register = new HashMap<>();
+    private final String rootPath;
+    private final HashMap<String, ArrayList<String>> register = new HashMap<>();
 
     public Comparator(String rootPath) {
         this.rootPath = rootPath;
@@ -48,7 +48,7 @@ public class Comparator {
 
             //Create byte array to read data in chunks
             byte[] byteArray = new byte[1024];
-            int bytesCount = 0;
+            int bytesCount;
 
             while ((bytesCount = fileInputStream.read(byteArray)) != -1) {
                 md5Digest.update(byteArray, 0, bytesCount);
@@ -72,7 +72,7 @@ public class Comparator {
     public void printDuplicates() {
         register.forEach((checksum, list) -> {
             if (list.size() > 1) {
-                list.forEach(foo -> System.out.println(foo));
+                list.forEach(System.out::println);
                 System.out.println("\n===========================\n");
             }
         });
